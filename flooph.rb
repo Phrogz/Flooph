@@ -1,6 +1,8 @@
 require 'parslet'
 
 class Flooph < Parslet::Parser
+  VERSION = 0.1
+
   # The current values used when evaluating templates and conditionals.
   # Can also be updated by user input using #update_variables.
   attr_accessor :vars
@@ -77,19 +79,19 @@ class Flooph < Parslet::Parser
 
   # Parse a simple hash setup for setting and updating values. For example:
   #
-  #     s = Flooph.new  # No variables yet
-  #     s.update_variables <<-END
+  #     f = Flooph.new  # No variables yet
+  #     f.update_variables <<-END
   #       debug: false
   #       cats: 17
   #       alive: yes
   #       trollLocation: "cave"
   #     END
-  #     s.conditional "cats > 3"
+  #     f.conditional "cats > 3"
   #     #=> true
-  #     s.update_variables "oldCats:cats \n cats: cats + 1"
-  #     s.calculate "cats"
+  #     f.update_variables "oldCats:cats \n cats: cats + 1"
+  #     f.calculate "cats"
   #     #=> 18
-  #     s.calculate "oldCats"
+  #     f.calculate "oldCats"
   #     #=> 17
   #
   # Legal value types are:
@@ -109,8 +111,8 @@ class Flooph < Parslet::Parser
 
   # Evaluate an expression, looking up values and performing simple math.
   #
-  #     s = Flooph.new cats:17, dogs:25
-  #     p s.calculate("cats + dogs")
+  #     f = Flooph.new cats:17, dogs:25
+  #     p f.calculate("cats + dogs")
   #     #=> 42
   #
   # @param vars [Hash] variable values to use for this and future evaluations.
