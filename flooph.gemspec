@@ -1,8 +1,8 @@
 # encoding: UTF-8
-require_relative 'flooph'
+require_relative 'lib/flooph'
 
 Gem::Specification.new do |s|
-  s.name        = "Flooph"
+  s.name        = "flooph"
   s.version     = Flooph::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Gavin Kistner"]
@@ -22,5 +22,5 @@ Gem::Specification.new do |s|
   }
   s.homepage    = "https://github.com/Phrogz/Flooph"
   s.add_runtime_dependency "parslet", '~> 1.8'
-  s.files         = ["flooph.rb"]
+  s.files         = ["lib/flooph.rb"]
 end
