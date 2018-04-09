@@ -95,9 +95,9 @@ Calculate a value and place its result at this spot. You can have spaces inside 
 The tag and expression must all be on the same line.
 
 
-**`{?condition1}` contents1 `{.}`**
-**`{?condition1}` contents1 `{|}` else_contents `{.}`**
-**`{?condition1}` contents1 `{|condition2}` contents2 `{|condition3}` contents3 `{.}`**
+**`{?condition1}` contents1 `{.}`**  
+**`{?condition1}` contents1 `{|}` else_contents `{.}`**  
+**`{?condition1}` contents1 `{|condition2}` contents2 `{|condition3}` contents3 `{.}`**  
 **`{?condition1}` contents1 `{|condition2}` contents2 `{|condition3}` contents3 `{|}` else_contents `{.}`**
 
 Conditional content must start with a `{?…}` condition tag. _(See [Condition Syntax](#condition-syntax) below for details on writing a condition.)_ You can have spaces inside and around the condition if you like, but the opening `{?` must not have a space between the characters.
@@ -119,9 +119,9 @@ Contents may be raw text, or may contain additional tags. For example:
 
 Conditions use:
 
-* Numeric and string comparisons, using < > = == ≤ <= ≥ >= ≠ !=
+* Numeric and string comparisons, using `<  >  =  ==  ≤  <=  ≥  >=  ≠  !=`
 
-   For example: `cat>0`, `loc="house"`, `dogs≠1`
+   For example: `cat>0`, `loc="house"` (or `loc=="house"`), `dogs≠1` (or `dogs!=1`)
 
    Comparisons involving variables that do not have a value (`zxyp < 8`)
    or comparisons between invalid types (`cats>"!@$#"`) evaluate to `false`.
@@ -133,9 +133,7 @@ Conditions use:
     For example: `alive | lifeCount>3 & (deaths<5 | !undead) || !(f && g)`
 
    * `!foo` means "not foo", inverting the meaning
-   * `&` has higher precedence than `|`
-
-      In other words `a | b & c` is the same as `a | (b & c)`.
+   * `&` has higher precedence than `|` (e.g. `a | b & c` is the same as `a | (b & c)`)
 
 ## Value Expressions
 _TODO_
