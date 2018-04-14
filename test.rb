@@ -1,4 +1,4 @@
-require_relative 'flooph'
+require_relative 'lib/flooph'
 
 def run!
   test_conditional
@@ -52,7 +52,10 @@ def test_assignments
       diff: 2,
       zoo: 0,
       gor: nil
-    }
+    },
+    "foo:1\r\nbar:2"     => { foo:1, bar:2, jim:1 },
+    "foo:1\n\n\nbar:2"   => { foo:1, bar:2, jim:1 },
+    "foo:1\r\n\r\nbar:2" => { foo:1, bar:2, jim:1 },
   }
 
   f = Flooph.new
@@ -135,7 +138,7 @@ def compare_hashes(h1,h2)
     puts "Missing keys: #{missing.join(', ')}"
   end
   unless (extra = h2.keys - h1.keys).empty?
-    puts "Extra keys: #{missing.join(', ')}"
+    puts "Extra keys: #{extra.join(', ')}"
   end
   (h1.keys & h2.keys).each do |k|
     unless h1[k] == h2[k]
@@ -156,7 +159,6 @@ def test_template
     { vars:{a:1,b:2}, template:"{=a+b}", expected:"3" },
     { vars:{a:1,b:2}, template:"{=a + b}", expected:"3" },
     { vars:{a:1,b:2}, template:"{= a + b }", expected:"3" },
-    { vars:{a:1,b:2}, template:"{=\na + b }", expected:"3" },
   ]
 
   f = Flooph.new

@@ -1,7 +1,7 @@
 require 'parslet'
 
 class Flooph < Parslet::Parser
-  VERSION = 0.1
+  VERSION = '0.1.1'
 
   # The current values used when evaluating templates and conditionals.
   # Can also be updated by user input using #update_variables.
@@ -166,7 +166,7 @@ class Flooph < Parslet::Parser
   rule(:cmpOp) { (match['<>='] >> str('=').maybe) | match['≤≥≠'] | str('!=') }
 
   # assignment
-  rule(:varset){ pair >> (match("\n") >> pair.maybe).repeat }
+  rule(:varset){ pair >> (str("\r").maybe >> str("\n") >> pair.maybe).repeat }
   rule(:pair)  { var.as(:set) >> sp >> str(':') >> sp >> value.as(:val) >> sp }
   rule(:value) { bool | adds | num | text | var.as(:lookup) }
   rule(:adds)  { (var.as(:lookup) | num).as(:a) >> sp >> match['+-'].as(:addOp) >> sp >> (var.as(:lookup) | num).as(:b) }
