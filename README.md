@@ -141,7 +141,15 @@ _TODO_
 
 ## Variable Assignment
 
-Variables are set/updated with one variable per line, using the syntax…  
+_Example syntax_:
+
+```yaml
+pagesRead       : 0
+wearingGlasses  : yes
+where_is_the_cat: "outside"
+```
+
+Variables are set and updated with one variable per line, using the syntax…  
 `variableName : valueExpression`  
 …with as many spaces/tabs around the colon as you wish (or none).
 
