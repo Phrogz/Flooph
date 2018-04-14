@@ -1,7 +1,7 @@
 require 'parslet'
 
 class Flooph < Parslet::Parser
-  VERSION = '0.1.1'
+  VERSION = '0.1.2'
 
   # The current values used when evaluating templates and conditionals.
   # Can also be updated by user input using #update_variables.
