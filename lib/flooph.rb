@@ -1,7 +1,7 @@
 require 'parslet'
 
 class Flooph < Parslet::Parser
-  VERSION = '0.1.2'
+  VERSION = '0.1.3'
 
   # The current values used when evaluating templates and conditionals.
   # Can also be updated by user input using #update_variables.
@@ -61,13 +61,13 @@ class Flooph < Parslet::Parser
   #     cats = 42        # variable `cats` equals 42
   #     cats>0 & dogs>0  # if both variables are numbers greater than zero
   #
-  # * Numeric and string comparisons, using < > = == ≤ <= ≥ >= ≠ !=
+  # * Numeric and string comparisons, using any of `<  >  =  ==  ≤  <=  ≥  >=  ≠  !=`
   #   * Non-present variables or invalid comparisons always result in false
   # * Variable presence/truthiness using just name (isDead) or with optional trailing question mark (isDead?).
-  # * Boolean composition using a | b & c & (d | !e) || !(f && g)
-  #   * !foo means "not foo", inverting the meaning
-  #   * & has higher precedence than |
-  #   * | is the same as ||; & is the same as &&
+  # * Boolean composition, e.g. `a | b & c & (d | !e) || !(f && g)`
+  #   * `!foo` means "not foo", inverting the meaning
+  #   * `&` has higher precedence than `|`
+  #   * `|` is the same as `||`; `&` is the same as `&&`
   #
   # @param vars [Hash] variable values to use for this and future evaluations.
   #        If omitted, existing variable values will be used.
@@ -178,6 +178,9 @@ class Flooph < Parslet::Parser
   rule(:num)   { (str('-').maybe >> match['\d'].repeat(1) >> (str('.') >> match['\d'].repeat(1)).maybe).as(:num) }
   rule(:var)   { match['a-zA-Z'] >> match('\w').repeat }
   rule(:sp)    { match[' \t'].repeat }
+
+  # Workaround parslet bug that requires a root for inspection
+  root :mkup
 
   class Transform < Parslet::Transform
     rule(proz:simple(:s)){ s.to_s }
