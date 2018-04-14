@@ -138,8 +138,48 @@ Conditions use:
 ## Value Expressions
 _TODO_
 
+
 ## Variable Assignment
-_TODO_
+
+Variables are set/updated with one variable per line, using the syntax…  
+`variableName : valueExpression`  
+…with as many spaces/tabs around the colon as you wish (or none).
+
+Variable names must start with a latin letter (A-Z), and may then have any number of latin letters, numbers, or underscores. (Hyphens, spaces, and other characters are not allowed in a variable name.) Variable names are case-sensitive.
+
+**Examples of Valid Variable Names**:
+
+* `foo`
+* `Foo` _(a different variable from `foo` or `FOO`)_
+* `foo2`
+* `the_GrEaTEst_variable___ever___`
+
+**Examples of Invalid Variable Names**:
+
+* `21guns` _(cannot start with a number)_
+* `_secret_` _(cannot start with an underscore)_
+* `so-cool` _(cannot contain a hypen)_
+* `two words` _(cannot contain a space)_
+
+Value expressions may reference other variables (including the same one). Expressions are evaluated from top to bottom; referencing a variable set later in the same assignment block will use its previous value (if any), while referencing a variable earlier will use the newly-set value.
+
+For example, imagine that you initially set these variables:
+
+```yaml
+time: 0
+a: 0
+b: 0
+```
+
+Then, you update the variables using this variable assignment:
+
+```yaml
+time: time+1
+a: b+1
+b: a+1
+```
+
+After evaluation, the variables will have the values `time=1`, `a=1`, `b=2`. When evaluating the expression `b+1`, the value of `b` is `0`. The resulting value of `1` is used to update `a`. Then, when evaluating the expression `a+1` the value of `a` has already been updated to `1`, and so `b` gets set to `2`.
 
 
 # Known Limitations (aka TODO)
