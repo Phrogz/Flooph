@@ -5,6 +5,7 @@ def run!
   test_assignments
   test_template
   test_interactions
+  test_failures
 end
 
 def test_interactions
@@ -171,6 +172,17 @@ def test_template
       puts "Expected:  #{h[:expected].inspect}"
       puts "Result:    #{result.inspect}"
       puts
+    end
+  end
+end
+
+def test_failures
+  f = Flooph.new a:1
+  ["{=foo", "{=foo}{?bar", "{?foo}yay{?bar{.}", "{?foo}yay{?bar}{.}"].each do |str|
+    begin
+      f.transform str
+      warn "Failed to raise error on invalid template #{str.inspect}"
+    rescue Parslet::ParseFailed
     end
   end
 end

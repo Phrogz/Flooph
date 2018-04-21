@@ -1,7 +1,7 @@
 require 'parslet'
 
 class Flooph < Parslet::Parser
-  VERSION = '0.1.3'
+  VERSION = '0.2'
 
   # The current values used when evaluating templates and conditionals.
   # Can also be updated by user input using #update_variables.
@@ -132,9 +132,9 @@ class Flooph < Parslet::Parser
       tree = send(root_rule).parse(str)
       Transform.new.eval(tree, @vars)
     rescue Parslet::ParseFailed => error
+      raise unless $DEBUG
       puts "Flooph failed to parse #{str.inspect}"
       puts error.parse_failure_cause.ascii_tree
-      puts
       # TODO: catch transformation errors
     end
   end

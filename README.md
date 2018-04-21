@@ -190,10 +190,14 @@ b: a+1
 After evaluation, the variables will have the values `time=1`, `a=1`, `b=2`. When evaluating the expression `b+1`, the value of `b` is `0`. The resulting value of `1` is used to update `a`. Then, when evaluating the expression `a+1` the value of `a` has already been updated to `1`, and so `b` gets set to `2`.
 
 
+# Catching Errors
+
+When a parse fails, Flooph will raise a `Parslet::ParseFailed` error. Rescue this error to react to the parse failure in your own code. See [this Parslet documentation](http://kschiess.github.io/parslet/tricks.html#toc-error-reports) for information on how to get detailed information on what parslet was expecting when the parse failed, and what it saw instead.
+
+
 # Known Limitations (aka TODO)
 _In decreasing priority…_
 
-- Flooph does not provide good errors when parsing or evaluation fails.
 - Tests are ad-hoc, and not integrated into any release process.
 - Value expression language is a little _too_ simple; should support full arithmetic, including parens.
 - Missing benchmarking to try speed improvements.
